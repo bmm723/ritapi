@@ -1,5 +1,5 @@
 {
-    "name": "rit/api",
+    "name": "rit/apiconnector",
     "description": "A Laravel 4.2 package to interact with the RIT API",
     "livense": "MIT",
     "authors": [
