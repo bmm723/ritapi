@@ -36,10 +36,10 @@ class ApiConnection {
      */
     function __construct() {
 
-        $this->key = (string)\Config::get('api::key');
-        $this->authorizationKey = (string)\Config::get('api::authorizationKey');
-        $this->apiUrl = (string)\Config::get('api::url');
-        $this->version = (string)\Config::get('api::version');
+        $this->key = (string)\Config::get('api.key');
+        $this->authorizationKey = (string)\Config::get('api.authorizationKey');
+        $this->apiUrl = (string)\Config::get('api.url');
+        $this->version = (string)\Config::get('api.version');
 
         $this->map = \Config::get('api::map');
 
