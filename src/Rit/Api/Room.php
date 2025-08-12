@@ -15,8 +15,8 @@ class Room extends ApiConnection {
 
         if(is_array($json))
         {
-            if(isset($json['data'][0])) {
-                foreach ($json['data'][0] as $attribute => $value) {
+            if(isset($json[0])) {
+                foreach ($json[0] as $attribute => $value) {
                     if (is_array($value)) {
                         if (isset($value[0])) {
                             $this->$attribute = $value[0];

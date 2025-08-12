@@ -15,8 +15,8 @@ class User extends ApiConnection {
 
         if(is_array($json))
         {
-            if(isset($json['data'])) {
-                foreach ($json['data'] as $attribute => $value) {
+            if(isset($json)) {
+                foreach ($json as $attribute => $value) {
                     if (is_array($value)) {
                         if (isset($value[0])) {
                             $this->$attribute = $value[0];
@@ -38,7 +38,7 @@ class User extends ApiConnection {
 
     public function getMeetings() {
 
-        $json = $this->doQuery('faculty/'.$this->cn."/meetings");
+        $json = $this->doQuery('users/'.$this->cn."/courses");
         $collection = $this->returnCollection($json,'Rit\Api\Meeting');
 
         return $collection;
@@ -53,7 +53,7 @@ class User extends ApiConnection {
             $options = array();
         }
 
-        $json = $this->doQuery('faculty/'.$this->cn."/courses", $options);
+        $json = $this->doQuery('users/'.$this->cn."/courses", $options);
         $collection = $this->returnCollection($json,'Rit\Api\Course');
 
         return $collection;

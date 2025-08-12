@@ -2,6 +2,8 @@
 namespace Rit\Api;
 
 
+use Illuminate\Support\Facades\Http;
+
 /**
  * Class ApiConnection
  * @package Rit\Api
@@ -43,9 +45,12 @@ class ApiConnection {
 
         $this->map = \Config::get('api::map');
 
-
-
-        $this->GuzzleClient = new \GuzzleHttp\Client(['base_uri' => $this->apiUrl]);
+        $this->GuzzleClient = new \GuzzleHttp\Client(
+            [
+                'base_uri' => $this->apiUrl, 'headers' => [
+                'Authorization' => 'Bearer ' . $this->authorizationKey,
+            ]
+            ]);
 
         //$this->GuzzleClient->setDefaultOptions(['verify' => false]);
     }
@@ -90,7 +95,7 @@ class ApiConnection {
 
         if(is_string($username)) {
 
-            $json = $this->doQuery('faculty/'.$username);
+            $json = $this->doQuery('users/'.$username);
             $user = new User($json);
 
             return $user;

@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'url' => 'https://api.rit.edu',
-    'authorizationKey' => 'RITAuthorization',
+    'url' => 'https://api.rit.edu/api/',
+    'authorizationKey' => 'Bearer',
     'map' => array(
         'cn' => 'username',
         'department' => 'department',

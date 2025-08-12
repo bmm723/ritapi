@@ -7,8 +7,8 @@ class Meeting extends ApiConnection {
     public function __construct($json) {
         if(is_array($json))
         {
-            if(isset($json['data'])) {
-                foreach ($json['data'] as $attribute => $value) {
+            if(isset($json)) {
+                foreach ($json as $attribute => $value) {
                     if (is_array($value)) {
                         if (isset($value[0])) {
                             $this->$attribute = $value[0];
