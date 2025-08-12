@@ -47,9 +47,10 @@ class ApiConnection {
 
         $this->GuzzleClient = new \GuzzleHttp\Client(
             [
-                'base_uri' => $this->apiUrl, 'headers' => [
-                'Authorization' => 'Bearer ' . $this->authorizationKey,
-            ]
+                'base_uri' => $this->apiUrl,
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->authorizationKey,
+                ]
             ]);
 
         //$this->GuzzleClient->setDefaultOptions(['verify' => false]);
@@ -67,15 +68,13 @@ class ApiConnection {
 
     function doQuery($url,$options = array()) {
 
-        $res = $this->GuzzleClient->get($this->version."/".$url."/",
-            array('query' =>
-                array_merge(
-                    $options,
-                    array($this->authorizationKey => $this->key)
-                ),
-                'verify' => false
-            )
-        );
+        $res = $this->GuzzleClient->request('GET', $url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->key,
+                'Accept' => 'application/json',
+            ],
+            'options' => [$options]
+        ]);
 
 
         if($res->getStatusCode() == 200) {
@@ -95,7 +94,7 @@ class ApiConnection {
 
         if(is_string($username)) {
 
-            $json = $this->doQuery('users/'.$username);
+            $json = $this->doQuery('api/users/'.$username);
             $user = new User($json);
 
             return $user;
@@ -106,7 +105,7 @@ class ApiConnection {
     public function getRoom($building,$room) {
 
         if(is_string($building) && is_string($room)) {
-            $json = $this->doQuery('rooms/'.$building."-".$room);
+            $json = $this->doQuery('api/rooms/'.$building."-".$room);
             $room = new Room($json);
 
             return $room;
@@ -117,10 +116,10 @@ class ApiConnection {
     public function getRoomMeetings($building,$room) {
 
         if(is_string($building) && is_string($room)) {
-            $json = $this->doQuery('rooms/'.$building."-".$room."/meetings");
+            $json = $this->doQuery('api/rooms/'.$building."-".$room."/meetings");
 
             $meetings = array();
-            foreach($json['data'] as $m) {
+            foreach($json as $m) {
 
                 $meetings[] = new Meeting(array("data" => $m));
 
@@ -135,7 +134,7 @@ class ApiConnection {
     {
         if(is_string($section) && is_string($term))
         {
-            $json = $this->doQuery("course/".$section, array("term" => $term));
+            $json = $this->doQuery("api/courses/".$section.'?term='.$term);
 
             return new Course($json);
 

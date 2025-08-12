@@ -53,7 +53,7 @@ class User extends ApiConnection {
             $options = array();
         }
 
-        $json = $this->doQuery('users/'.$this->cn."/courses", $options);
+        $json = $this->doQuery('api/users/'.$this->cn."/courses", $options);
         $collection = $this->returnCollection($json,'Rit\Api\Course');
 
         return $collection;
